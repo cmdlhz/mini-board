@@ -8,9 +8,8 @@
 <title>Mini Board</title>
 </head>
 <body>
-My first web board!<br>
-시작점 : <%= rPath %><br>
-<a href="<%= rPath %>/2.jsp">JSP로 이동</a>
-Login PAge
+웹 게시판<br>
+<a href="/views/user/login">LOGIN</a><br>
+<a href="/views/user/signup">Sign Up</a>
 </body>
 </html>

@@ -4,15 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LOGIN</title>
 </head>
 <body>
-<%
-//Type mismatch: cannot convert from Object to String
-//그래서 casting(형변환)이 필요함
-String test = (String)request.getAttribute("test");
-%>
-<%= test %>
-Login Page
+<form method="post" action="/user/login">
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" name="ui_id" id="uiId"></td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td><input type="password" name="ui_pwd" id="uiPwd"></td>
+		</tr>
+		<tr>
+			<th colspan="2"><button>Log In</button></th>
+		</tr>
+	</table>
+</form>
 </body>
 </html>

@@ -12,26 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 public class URIController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String PREFIX = "/WEB-INF";
+	private static final String SUFFIX = ".jsp";
+	
+	private static String getForwardURI(HttpServletRequest request) {
+		return PREFIX + request.getRequestURI() + SUFFIX;
+ 	}
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.println("GET method~ <br>");
-		String uri = "/WEB-INF" + request.getRequestURI() + ".jsp";
-		out.println("What you asked : " + uri);
-		
-		request.setAttribute("test", "12345");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		// 부동산 중개업자
-		RequestDispatcher rd = request.getRequestDispatcher(uri);
+		RequestDispatcher rd = request.getRequestDispatcher(getForwardURI(request));
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.println("POST method~");
+		doGet(request, response);
 	}
 }
