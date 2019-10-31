@@ -20,7 +20,7 @@ public class UserService {
 	public Map<String, Object> doLogin(String id, String pwd){
 		Connection con = DBCon.getCon();
 		DBExecutor dbe = new DBExecutor();
-		String sql = "select * from user_info where id=? and pwd=? ";
+		String sql = "select * from user_info where ui_id=? and ui_pwd=? ";
 
 		try {
 			PreparedStatement ps = dbe.prepared(con, sql);
@@ -30,8 +30,8 @@ public class UserService {
 			if(rs.next()) {
 				Map<String, Object> user = new HashMap<>();
 				user.put("ui_num", rs.getInt("ui_num"));
-				user.put("ui_name", rs.getInt("ui_name"));
-				user.put("ui_id", rs.getInt("ui_id"));
+				user.put("ui_name", rs.getString("ui_name"));
+				user.put("ui_id", rs.getString("ui_id"));
 				return user;
 			}
 		} catch (SQLException e) {
@@ -42,12 +42,13 @@ public class UserService {
 		}
 		return null;
 	}
+	
 	public Map<String, Object> doSignup(String ui_name, String ui_id, String ui_pwd){
 		DBExecutor dbe = new DBExecutor();
 		try {
 			Connection con = DBCon.getCon();
 			String sql = "insert into user_info(ui_num, ui_name, ui_id, ui_pwd, credat, cretim, moddat, modtim) ";
-			sql += "values(seq_ui_num.nextval, ?, ?, ?, to_char(SYSDATE, 'YYYYMMDD'), TO_CHAR(SYSDATE, 'HH24MISS'), to_char(SYSDATE, 'YYYYMMDD'), TO_CHAR(SYSDATE, 'HH24MISS'))";
+			sql += "values(seq_ui_num.nextval, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(SYSDATE, 'HH24MISS'), TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(SYSDATE, 'HH24MISS'))";
 			
 			PreparedStatement ps = dbe.prepared(con, sql);
 			ps.setString(1, ui_name);
@@ -60,7 +61,6 @@ public class UserService {
 				rMap.put("url", "/views/user/login");
 				return rMap;
 			}
-			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
